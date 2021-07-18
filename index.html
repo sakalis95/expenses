@@ -33,10 +33,27 @@
                     <input type="number" class="form-control mr-2" id="amount" placeholder="Amount" step="any" />
                     <input type="text" class="form-control mr-2" id="shop" placeholder="Shop" autocomplete="on"/>
                     <textarea type="text" class="form-control mr-2" id="items" placeholder="Goods" autocomplete="on"></textarea>
-                    <!-- <button onclick="createItem();">Click me</button> -->
                     <input type="submit" class="btn btn-dark" value="Submit" onclick="createItem();" />
                 </form>
                 <h2 class="title">Purchases</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="table-success">
+                            <th scope="col" style="width: 12rem" onclick="">Date of purchase</th>
+                            <th scope="col" style="width: 6rem" onclick="">Amount</th>
+                            <th scope="col" style="width: 6rem" onclick="">Shop</th>
+                            <th scope="col" style="width: 30rem">Goods</th>
+                        </tr>
+                        <tbody>
+                            <tr>
+                                <th id="inputDate"></th>
+                                <td id="inputAmount"></td>
+                                <td id="inputShop"></td>
+                                <td id="inputGoods"></td>
+                            </tr>
+                        </tbody>
+                    </thead>
+                </table>
                 <ul id="items" class="list-group"></ul>
             </div>
         </div>
@@ -50,9 +67,13 @@
             let newItemAmount = document.getElementById("amount").value;
             let newItemShop = document.getElementById("shop").value;
             let newItemGoods = document.getElementById("goods").value;
-            item.push(newItemDate, newItemAmount, newItemShop, newItemGoods);  
+            item.push(newItemDate, newItemAmount, newItemShop, newItemGoods);
+            addItem(item);
         };
 
+        // function addItem(item) {
+        //     localStorage.setItem("items", JSON.stringify(items));
+        // }
         // let addItem = () => {
         //     let item = document.getElementById("input");
         //     items.push(item.value);
