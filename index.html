@@ -23,12 +23,16 @@
         <div class="container">
             <div id="main" class="card card-body">
                 <h2 class="title">Add your purchases</h2>
-                <div id="addForm" class="form-inline mb-3">
-                    <input type="date" class="form-control mr-2" id="date">
-                    <input type="number" class="form-control mr-2" id="amount" placeholder="Amount" step="any">
-                    <input type="text" class="form-control mr-2" id="shop" placeholder="Shop" autocomplete="on">
-                    <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on"></textarea>
-                    <input type="submit" class="btn btn-dark" value="Submit" onclick="createItem();">
+                <div id="addForm" class="form mb-3">
+                    <div class="form-inline">
+                        <input type="date" class="form-control mr-2 my-2" id="date">
+                        <input type="number" class="form-control mr-2 my-2" id="amount" placeholder="Amount" step="any">
+                        <input type="text" class="form-control mr-2 my-2" id="shop" placeholder="Shop" autocomplete="on">
+                        <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem();" style="width: 12rem">
+                    </div>
+                    <div class="d-block">
+                        <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on" rows="1" cols="1" style="max-width: 38rem"></textarea>
+                    </div>
                 </div>
                 <h2 class="title">Purchases</h2>
                 <table class="table table-striped">
@@ -64,15 +68,19 @@
             let newItemGoods = document.getElementById("goods").value;
             item.push([newItemDate, newItemAmount, newItemShop, newItemGoods]);
             addItemToStorage(item);
+            displayItem(item);
         };
 
         function addItemToStorage(item) {
             localStorage.setItem("items", JSON.stringify(item));
         };
 
-        // function displayItem() {
-            
-        // }
+        function displayItem() {
+            const inputDate = document.getElementById("inputDate");
+            const inputAmount = document.getElementById("inputAmount");
+            const inputShop = document.getElementById("inputShop");
+            const inputGoods = document.getElementById("inputGoods");
+        }
         //     // console.log(localStorage.length);
         //     const tbody = document.getElementById("tbody");
         //     const newTr = document.createElement("tr");
