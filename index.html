@@ -8,16 +8,11 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     </head>
     <body>
-        <input id="input" type="text" />
-        <button onclick="addItem(); clearInput()">Click me</button>
-        <ul id="ul"></ul>
-
-
         <header id="main-header" class="bg-success text-white p-4 mb-3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <h1 id="header-title">Expenses</h1>
+                        <h3 id="header-title">In Memoriam DollarBird</h3>
                     </div>
                     <div class="col-md-6 align-self-center">
                         <input type="text" class="form-control" id="filter" placeholder="Search Items..." />
@@ -28,13 +23,13 @@
         <div class="container">
             <div id="main" class="card card-body">
                 <h2 class="title">Add your purchases</h2>
-                <form id="addForm" class="form-inline mb-3">
-                    <input type="date" class="form-control mr-2" id="date"/>
-                    <input type="number" class="form-control mr-2" id="amount" placeholder="Amount" step="any" />
-                    <input type="text" class="form-control mr-2" id="shop" placeholder="Shop" autocomplete="on"/>
-                    <textarea type="text" class="form-control mr-2" id="items" placeholder="Goods" autocomplete="on"></textarea>
-                    <input type="submit" class="btn btn-dark" value="Submit" onclick="createItem();" />
-                </form>
+                <div id="addForm" class="form-inline mb-3">
+                    <input type="date" class="form-control mr-2" id="date">
+                    <input type="number" class="form-control mr-2" id="amount" placeholder="Amount" step="any">
+                    <input type="text" class="form-control mr-2" id="shop" placeholder="Shop" autocomplete="on">
+                    <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on"></textarea>
+                    <input type="submit" class="btn btn-dark" value="Submit" onclick="createItem();">
+                </div>
                 <h2 class="title">Purchases</h2>
                 <table class="table table-striped">
                     <thead>
@@ -44,7 +39,7 @@
                             <th scope="col" style="width: 6rem" onclick="">Shop</th>
                             <th scope="col" style="width: 30rem">Goods</th>
                         </tr>
-                        <tbody>
+                        <tbody id="tbody">
                             <tr>
                                 <th id="inputDate"></th>
                                 <td id="inputAmount"></td>
@@ -61,19 +56,36 @@
     <script>
         document.getElementById('date').valueAsDate = new Date();
         let items = [];
+        let item = [];
         function createItem() {
-            let item = [];
             let newItemDate = document.getElementById("date").value;
             let newItemAmount = document.getElementById("amount").value;
             let newItemShop = document.getElementById("shop").value;
             let newItemGoods = document.getElementById("goods").value;
-            item.push(newItemDate, newItemAmount, newItemShop, newItemGoods);
-            addItem(item);
+            item.push([newItemDate, newItemAmount, newItemShop, newItemGoods]);
+            addItemToStorage(item);
         };
 
-        // function addItem(item) {
-        //     localStorage.setItem("items", JSON.stringify(items));
+        function addItemToStorage(item) {
+            localStorage.setItem("items", JSON.stringify(item));
+        };
+
+        // function displayItem() {
+            
         // }
+        //     // console.log(localStorage.length);
+        //     const tbody = document.getElementById("tbody");
+        //     const newTr = document.createElement("tr");
+        //     // for (let i = 0; i < item.length; i++) {
+        //     //     newTr.appendChild(document.createTextNode(item.value)
+                
+        //     // }
+        //     // newTr.appendChild
+        //     const inputDate = document.getElementById("inputDate");
+        //     const inputAmount = document.getElementById("inputAmount");
+        //     const inputShop = document.getElementById("inputShop");
+        //     const inputGoods = document.getElementById("inputGoods");
+    
         // let addItem = () => {
         //     let item = document.getElementById("input");
         //     items.push(item.value);
