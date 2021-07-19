@@ -5,9 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Expenses app</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /> -->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <style>
             .calendar, .calendar_weekdays, .calendar_content {
             max-width: 25rem; }
@@ -26,7 +27,7 @@
             color: #fff !important; }
 
             .calendar_weekdays div, .calendar_content div {
-            width: 3.8rem;
+            width: 3.4rem;
             overflow: hidden;
             text-align: center;
             background-color: transparent;
@@ -64,7 +65,7 @@
             width: 1.7rem;
             height: 1.7rem;
             margin: 0 auto;
-            background: #1089ff;
+            background: #198754;
             z-index: -1; }
 
             .calendar_content div.selected {
@@ -78,7 +79,7 @@
             padding: 0 0.2rem;
             font-weight: 500;
             font-size: 1.2rem;
-            color: #1089ff;
+            color: #198754;
             float: left;
             width: 70%;
             margin: 0 0 0.6rem; }
@@ -92,13 +93,10 @@
             float: left;
             width: 15%;
             transition: color .2s; }
-
-            button.switch-month:hover {
-            color: #1089ff; }
         </style>
     </head>
     <body>
-        <header id="main-header" class="bg-success text-white p-4 mb-3">
+        <header id="main-header" class="bg-success bg-gradient text-white p-4 mb-3">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
@@ -127,7 +125,7 @@
                             <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem();" style="width: 38rem">
                         </div>
                     </div>
-                    <div class="m-2 float-right">
+                    <div class="m-4">
                         <div class="row">
                             <div class="col-md-12">
                             <div class="calendar calendar-first" id="calendar_first">
@@ -136,8 +134,8 @@
                             <h2>July 2021</h2>
                             <button class="switch-month switch-right"> <i class="fa fa-chevron-right"></i></button>
                             </div>
-                            <div class="calendar_weekdays bg-primary bg-gradient"><div style="color: rgb(68, 68, 68);">Mon</div><div style="color: rgb(68, 68, 68);">Tue</div><div style="color: rgb(68, 68, 68);">Wed</div><div style="color: rgb(68, 68, 68);">Thu</div><div style="color: rgb(68, 68, 68);">Fri</div><div style="color: rgb(68, 68, 68);">Sat</div><div style="color: rgb(68, 68, 68);">Sun</div></div>
-                            <div class="calendar_content"><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="past-date">1</div><div class="past-date">2</div><div class="past-date">3</div><div class="past-date">4</div><div class="past-date">5</div><div class="past-date">6</div><div class="past-date">7</div><div class="past-date">8</div><div class="past-date">9</div><div class="past-date">10</div><div class="past-date">11</div><div class="past-date">12</div><div class="past-date">13</div><div class="past-date">14</div><div class="past-date">15</div><div class="past-date">16</div><div class="past-date">17</div><div class="today" style="color: rgb(0, 189, 170);">18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div></div>
+                            <div class="calendar_weekdays bg-success"><div style="color: rgb(68, 68, 68);">Mon</div><div style="color: rgb(68, 68, 68);">Tue</div><div style="color: rgb(68, 68, 68);">Wed</div><div style="color: rgb(68, 68, 68);">Thu</div><div style="color: rgb(68, 68, 68);">Fri</div><div style="color: rgb(68, 68, 68);">Sat</div><div style="color: rgb(68, 68, 68);">Sun</div></div>
+                            <div class="calendar_content"><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="past-date">1</div><div class="past-date">2</div><div class="past-date">3</div><div class="past-date">4</div><div class="past-date">5</div><div class="past-date">6</div><div class="past-date">7</div><div class="past-date">8</div><div class="past-date">9</div><div class="past-date">10</div><div class="past-date">11</div><div class="past-date">12</div><div class="past-date">13</div><div class="past-date">14</div><div class="past-date">15</div><div class="past-date">16</div><div class="past-date">17</div><div>18</div><div>19</div><div>20</div><div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div><div class="blank"></div></div>
                             </div>
                             </div>
                             </div>
@@ -164,7 +162,12 @@
         </div>
     </body>
     <script>
-        document.getElementById('date').valueAsDate = new Date();
+        let today = new Date ();
+        let dd = JSON.stringify(today.getDate()).padStart(2, '0');
+        let mm = JSON.stringify(today.getMonth() + 1).padStart(2, '0');
+        let yyyy = today.getFullYear();
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById('date').value = today;
         let items = [];
         let item = [];
         function createItem() {
