@@ -112,11 +112,11 @@
                 <div class=" d-flex align-items-center justify-content-center flex-row">
                     <div id="addForm" class="mb-3">
                         <h2 class="title d-flex justify-content-center">Add your purchases</h2>
-                        <div class="form-inline">
+                        <form class="form-inline">
                             <input type="date" class="form-control mr-2 my-2" id="date">
                             <input type="number" class="form-control mr-2 my-2" id="amount" placeholder="Amount" step="any">
                             <input type="text" class="form-control mr-2 my-2" id="shop" placeholder="Shop" autocomplete="on">
-                        </div>
+                        </form>
                         <div class="d-block">
                             <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on" rows="3" cols="1" style="max-width: 38rem"></textarea>
                         </div>
@@ -227,41 +227,62 @@
             newItemGoods.value = "";
         };
 
-        // function displayAllItems () {
-        //     const itemsFromStorage = JSON.parse(localStorage.getItem('items'));
-        //     let storedItemDate = "";
-        //     let storedItemAmount = "";
-        //     let storedItemShop = "";
-        //     let storedItemGoods = "";
-        //     let storedData = [storedItemDate, storedItemAmount, storedItemShop, storedItemGoods];
-        //     for (let i = 0; i < itemsFromStorage.length; i++) {
-        //         // let storedItemDate = itemsFromStorage[i][0];
-        //         // let storedItemAmount = itemsFromStorage[i][1];
-        //         // let storedItemShop = itemsFromStorage[i][2];
-        //         // let storedItemGoods = itemsFromStorage[i][3];
-        //         // console.log(storedItemDate);
-        //         // console.log(storedItemAmount);
-        //         // console.log(storedItemShop);
-        //         // console.log(storedItemGoods);
-        //         if (storedData.length === itemsFromStorage[i].length) {
-        //             for (let j = 0; j < itemsFromStorage[i].length; j++) {
-        //                 displayItem(itemsFromStorage[i][j])
-        //                 // storedData[j] = itemsFromStorage[i][j];
-        //                 // console.log(storedData[j]);
-        //                 // console.log(itemsFromStorage[i][j]);
-        //                 // console.log(storedItemDate);
-        //                 // console.log(storedItemAmount);
-        //                 // console.log(storedItemShop);
-        //                 // console.log(storedItemGoods);
-        //             }
-        //         } else {
-        //             console.log("Inproper data");
-        //         }
+        function displayAllItems () {
+            const itemsFromStorage = JSON.parse(localStorage.getItem('items'));
+
+            let storageData = [];
+            for (let i = 0; i < itemsFromStorage.length; i++) {
+            storageData.push([itemsFromStorage[i]]);
+            
+            };
+
+        
+            for (let i = 0; i < storageData.length; i++) {
+                const tbody = document.getElementById("tbody");
+                const newTr = document.createElement("tr");
+
+                const newThDate = document.createElement("th");
+                const newTdAmount = document.createElement("td");
+                const newTdShop = document.createElement("td");
+                const newTdGoods = document.createElement("td");
+                // const newTdUpdate = document.createElement("td");
+                const newTdDelete = document.createElement("td");
+
+                newThDate.className = 'inputDate';
+                newTdAmount.className = 'inputAmount';
+                newTdShop.className = 'inputShop';
+                newTdGoods.className = 'inputGoods';
+//TODO: Clean this mess.
+                newThDate.appendChild(document.createTextNode(storageData[i][0][0]));
+                newTdAmount.appendChild(document.createTextNode(storageData[i][0][1]));
+                newTdShop.appendChild(document.createTextNode(storageData[i][0][2]));
+                newTdGoods.appendChild(document.createTextNode(storageData[i][0][3]));
+
+                newTr.appendChild(newThDate);
+                newTr.appendChild(newTdAmount);
+                newTr.appendChild(newTdShop);
+                newTr.appendChild(newTdGoods);
+                // newTr.appendChild(newTdUpdate);
+                newTr.appendChild(newTdDelete);
+
+                let deleteBtn = document.createElement("button");
+                deleteBtn.className = "btn btn-danger btn-sm float-end delete";
+                deleteBtn.appendChild(document.createTextNode("Delete"));
+                newTdDelete.appendChild(deleteBtn);
+                deleteBtn.setAttribute("onclick", "removeItem(this)");
+
+                // let updateBtn = document.createElement("button");
+                // updateBtn.className = "btn btn-primary btn-sm float-end mx-2 update";
+                // updateBtn.appendChild(document.createTextNode("Update"));
+                // newTdUpdate.appendChild(updateBtn);
+                tbody.appendChild(newTr);
+
                 
-        //     }
-        //     items = itemsFromStorage;
-        // };
-        // displayAllItems ();
+            }
+
+            items = itemsFromStorage;
+        };
+        displayAllItems ();
 
         function removeItem (a) {;
             let rowToRemove = a.parentElement.parentElement;
@@ -275,6 +296,7 @@
             let items = [];
             for (i = 0; i < trCount.length - 2; i++) {
                 let dateInTable = document.getElementsByClassName("inputDate")[i].innerText;
+                console.log(dateInTable);
                 let amountInTable = document.getElementsByClassName("inputAmount")[i].innerText;
                 let shopInTable = document.getElementsByClassName("inputShop")[i].innerText;
                 let goodsInTable = document.getElementsByClassName("inputGoods")[i].innerText;
