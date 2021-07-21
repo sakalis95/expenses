@@ -118,10 +118,10 @@
                             <input type="text" class="form-control mr-2 my-2" id="shop" placeholder="Shop" autocomplete="on">
                         </form>
                         <div class="d-block">
-                            <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on" rows="3" cols="1" style="max-width: 38rem"></textarea>
+                            <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on" rows="3"></textarea>
                         </div>
                         <div>
-                            <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem(), displayItem(), clearInput();;" style="width: 38rem">
+                            <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem(), displayItem(), clearInput();" style="width: 38rem">
                         </div>
                     </div>
                     <div class="ps-4">
@@ -149,7 +149,7 @@
                             <th scope="col" style="width: 6rem" onclick="">Amount</th>
                             <th scope="col" style="width: 6rem" onclick="">Shop</th>
                             <th scope="col" style="width: 30rem">Goods</th>
-                            <!-- <th scope="col" style="width: 4rem"></th> -->
+                            <th scope="col" style="width: 4rem"></th>
                             <th scope="col" style="width: 4rem"></th>
                         </tr>
                         <tbody id="tbody">
@@ -188,7 +188,7 @@
             const newTdAmount = document.createElement("td");
             const newTdShop = document.createElement("td");
             const newTdGoods = document.createElement("td");
-            // const newTdUpdate = document.createElement("td");
+            const newTdUpdate = document.createElement("td");
             const newTdDelete = document.createElement("td");
 
             newThDate.className = 'inputDate';
@@ -205,19 +205,21 @@
             newTr.appendChild(newTdAmount);
             newTr.appendChild(newTdShop);
             newTr.appendChild(newTdGoods);
-            // newTr.appendChild(newTdUpdate);
+            newTr.appendChild(newTdUpdate);
             newTr.appendChild(newTdDelete);
 
             let deleteBtn = document.createElement("button");
             deleteBtn.className = "btn btn-danger btn-sm float-end delete";
             deleteBtn.appendChild(document.createTextNode("Delete"));
+            deleteBtn.id = "deleteIt";
             newTdDelete.appendChild(deleteBtn);
             deleteBtn.setAttribute("onclick", "removeItem(this)");
 
-            // let updateBtn = document.createElement("button");
-            // updateBtn.className = "btn btn-primary btn-sm float-end mx-2 update";
-            // updateBtn.appendChild(document.createTextNode("Update"));
-            // newTdUpdate.appendChild(updateBtn);
+            let updateBtn = document.createElement("button");
+            updateBtn.className = "btn btn-primary btn-sm float-end mx-2 update";
+            updateBtn.appendChild(document.createTextNode("Update"));
+            newTdUpdate.appendChild(updateBtn);
+            updateBtn.setAttribute("onclick", "updateItem(this)");
             tbody.appendChild(newTr);
         };
 
@@ -245,7 +247,7 @@
                 const newTdAmount = document.createElement("td");
                 const newTdShop = document.createElement("td");
                 const newTdGoods = document.createElement("td");
-                // const newTdUpdate = document.createElement("td");
+                const newTdUpdate = document.createElement("td");
                 const newTdDelete = document.createElement("td");
 
                 newThDate.className = 'inputDate';
@@ -262,19 +264,21 @@
                 newTr.appendChild(newTdAmount);
                 newTr.appendChild(newTdShop);
                 newTr.appendChild(newTdGoods);
-                // newTr.appendChild(newTdUpdate);
+                newTr.appendChild(newTdUpdate);
                 newTr.appendChild(newTdDelete);
 
                 let deleteBtn = document.createElement("button");
                 deleteBtn.className = "btn btn-danger btn-sm float-end delete";
+                deleteBtn.id = "deleteIt";
                 deleteBtn.appendChild(document.createTextNode("Delete"));
                 newTdDelete.appendChild(deleteBtn);
                 deleteBtn.setAttribute("onclick", "removeItem(this)");
 
-                // let updateBtn = document.createElement("button");
-                // updateBtn.className = "btn btn-primary btn-sm float-end mx-2 update";
-                // updateBtn.appendChild(document.createTextNode("Update"));
-                // newTdUpdate.appendChild(updateBtn);
+                let updateBtn = document.createElement("button");
+                updateBtn.className = "btn btn-primary btn-sm float-end mx-2 update";
+                updateBtn.appendChild(document.createTextNode("Update"));
+                newTdUpdate.appendChild(updateBtn);
+                updateBtn.setAttribute("onclick", "updateItem(this)");
                 tbody.appendChild(newTr);
 
                 
@@ -296,7 +300,6 @@
             let items = [];
             for (i = 0; i < trCount.length - 2; i++) {
                 let dateInTable = document.getElementsByClassName("inputDate")[i].innerText;
-                console.log(dateInTable);
                 let amountInTable = document.getElementsByClassName("inputAmount")[i].innerText;
                 let shopInTable = document.getElementsByClassName("inputShop")[i].innerText;
                 let goodsInTable = document.getElementsByClassName("inputGoods")[i].innerText;
@@ -305,6 +308,39 @@
                 localStorage.setItem('items', JSON.stringify(items));    
             };
 
+        function updateItem(a) {
+            let rowToUpdate = a.parentElement.parentElement;
+            let domChanges = [
+                "<input type=\"date\" style=\"margin-left: -0.5rem;\" class=\"updated form-control\">",
+                "<input type=\"number\" style=\"margin-left: -0.5rem;\" class=\"updated form-control\" placeholder=\"Sum\" step=\"any\">",
+                "<input type=\"text\" style=\"margin-left: -0.5rem;\" class=\"updated form-control\" placeholder=\"Shop\">",
+                "<input type=\"text\" style=\"margin-left: -0.5rem;\" class=\"updated form-control\" placeholder=\"Goods\">",
+                "<button class=\"btn btn-success btn-sm float-end mx-2 save\" onclick=\"saveUpdatedItem(this)\">Save it</button>",
+                "<button class=\"btn btn-danger btn-sm float-end delete\" disabled>Delete</button>"
+            ];
+            for (let i = 0; i < rowToUpdate.children.length; i++) {
+                rowToUpdate.children[i].innerHTML = domChanges[i];
+            }
+            };
+
+
+            function saveUpdatedItem(a) {
+                let updatedRow = a.parentElement.parentElement;
+                let updatedItem = [];
+                let updated = a.parentElement.parentElement.getElementsByClassName("updated");
+                for (let i = 0; i < updated.length; i++) {
+                    updatedItem.push(updated[i].value);
+                };
+                for (let i = 0; i < updatedItem.length; i++) {
+                    updatedRow.children[i].innerText = updatedItem[i].toString();
+                }
+
+                //why this does not work???
+                // updatedRow.getElementById('deleteIt').innerHTML = "<button class=\"btn btn-danger btn-sm float-end delete\" id=\"deleteIt\" onclick=\"removeItem(this)\">Delete</button>";
+                updatedRow.children[5].innerHTML = "<button class=\"btn btn-danger btn-sm float-end delete\" id=\"deleteIt\" onclick=\"removeItem(this)\">Delete</button>";
+                updatedRow.children[4].innerHTML = "<button class=\"btn btn-primary btn-sm float-end mx-2 update\" onclick=\"updateItem(this)\">Update</button>"
+                displayLeftItems()
+            };
         // function filterItems(e) {
         //     let text = e.target.value.toLowerCase();
         //     let dates = itemList.getElementsByTagName("th");
