@@ -1,0 +1,83 @@
+.calendar, .calendar_weekdays, .calendar_content {
+    max-width: 100%; }
+
+    .calendar {
+    margin: auto;
+    font-weight: 400; }
+
+    .calendar_content, .calendar_weekdays, .calendar_header {
+    position: relative;
+    overflow: hidden; }
+
+    .calendar_weekdays div {
+    display: inline-block;
+    vertical-align: top;
+    color: #fff !important; }
+
+    .calendar_weekdays div, .calendar_content div {
+    width: 14.2%;
+    overflow: hidden;
+    text-align: center;
+    background-color: transparent;
+    color: #000;
+    font-size: 1rem;
+    padding: 0.2rem 0; }
+
+    .calendar_content div {
+    border: 1px solid transparent;
+    float: left;
+    position: relative;
+    z-index: 0; }
+
+    .calendar_content div:hover {
+    border: 1px solid #dcdcdc;
+    cursor: default; }
+
+    .calendar_content div.blank:hover {
+    cursor: default;
+    border: 1px solid transparent; }
+
+    .calendar_content div.today {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff !important; }
+    
+    .calendar_content div.today:after {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translateY(-50%);
+    content: '';
+    width: 1.7rem;
+    height: 1.7rem;
+    margin: 0 auto;
+    background: #198754;
+    z-index: -1; }
+
+    .calendar_content div.selected {
+    background-color: #f0f0f0; }
+
+    .calendar_header {
+    width: 100%;
+    text-align: center; }
+
+    .calendar_header h2 {
+    padding: 0 0.2rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+    color: #198754;
+    float: left;
+    width: 70%;
+    margin: 0 0 0.6rem; }
+
+    button.switch-month {
+    background-color: transparent;
+    padding: 0;
+    outline: none;
+    border: none;
+    color: #dcdcdc;
+    float: left;
+    width: 15%;
+    transition: color .2s; }

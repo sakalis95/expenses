@@ -8,91 +8,7 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <style>
-            .calendar, .calendar_weekdays, .calendar_content {
-            max-width: 100%; }
-
-            .calendar {
-            margin: auto;
-            font-weight: 400; }
-
-            .calendar_content, .calendar_weekdays, .calendar_header {
-            position: relative;
-            overflow: hidden; }
-
-            .calendar_weekdays div {
-            display: inline-block;
-            vertical-align: top;
-            color: #fff !important; }
-
-            .calendar_weekdays div, .calendar_content div {
-            width: 14.2%;
-            overflow: hidden;
-            text-align: center;
-            background-color: transparent;
-            color: #000;
-            font-size: 1rem;
-            padding: 0.2rem 0; }
-
-            .calendar_content div {
-            border: 1px solid transparent;
-            float: left;
-            position: relative;
-            z-index: 0; }
-
-            .calendar_content div:hover {
-            border: 1px solid #dcdcdc;
-            cursor: default; }
-
-            .calendar_content div.blank:hover {
-            cursor: default;
-            border: 1px solid transparent; }
-
-            .calendar_content div.today {
-            font-weight: bold;
-            font-size: 1rem;
-            color: #fff !important; }
-            
-            .calendar_content div.today:after {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            transform: translateY(-50%);
-            content: '';
-            width: 1.7rem;
-            height: 1.7rem;
-            margin: 0 auto;
-            background: #198754;
-            z-index: -1; }
-
-            .calendar_content div.selected {
-            background-color: #f0f0f0; }
-
-            .calendar_header {
-            width: 100%;
-            text-align: center; }
-
-            .calendar_header h2 {
-            padding: 0 0.2rem;
-            font-weight: 500;
-            font-size: 1.2rem;
-            color: #198754;
-            float: left;
-            width: 70%;
-            margin: 0 0 0.6rem; }
-
-            button.switch-month {
-            background-color: transparent;
-            padding: 0;
-            outline: none;
-            border: none;
-            color: #dcdcdc;
-            float: left;
-            width: 15%;
-            transition: color .2s; }
-        </style>
+        <link rel="stylesheet" href="calendar/styles.css">
     </head>
     <body>
         <header id="main-header" class="bg-success bg-gradient text-white p-4 mb-3">
@@ -145,10 +61,10 @@
                 <table class="table table-striped">
                     <thead>
                         <tr class="table-success">
-                            <th scope="col" style="width: 12rem" onclick="">Date of purchase</th>
-                            <th scope="col" style="width: 6rem" onclick="">Amount</th>
-                            <th scope="col" style="width: 6rem" onclick="">Shop</th>
-                            <th scope="col" style="width: 30rem">Goods</th>
+                            <th scope="col" style="width: 14rem" onclick="">Date of purchase</th>
+                            <th scope="col" style="width: 8rem" onclick="">Amount</th>
+                            <th scope="col" style="width: 8rem" onclick="">Shop</th>
+                            <th scope="col" style="width: 26rem">Goods</th>
                             <th scope="col" style="width: 4rem"></th>
                             <th scope="col" style="width: 4rem"></th>
                         </tr>
@@ -216,7 +132,7 @@
             deleteBtn.setAttribute("onclick", "removeItem(this)");
 
             let updateBtn = document.createElement("button");
-            updateBtn.className = "btn btn-primary btn-sm float-end mx-2 update";
+            updateBtn.className = "btn btn-primary btn-sm float-end update";
             updateBtn.appendChild(document.createTextNode("Update"));
             newTdUpdate.appendChild(updateBtn);
             updateBtn.setAttribute("onclick", "updateItem(this)");
@@ -254,7 +170,7 @@
                 newTdAmount.className = 'inputAmount';
                 newTdShop.className = 'inputShop';
                 newTdGoods.className = 'inputGoods';
-//TODO: Clean this mess.
+                //TODO: Clean this mess.
                 newThDate.appendChild(document.createTextNode(storageData[i][0][0]));
                 newTdAmount.appendChild(document.createTextNode(storageData[i][0][1]));
                 newTdShop.appendChild(document.createTextNode(storageData[i][0][2]));
@@ -275,7 +191,7 @@
                 deleteBtn.setAttribute("onclick", "removeItem(this)");
 
                 let updateBtn = document.createElement("button");
-                updateBtn.className = "btn btn-primary btn-sm float-end mx-2 update";
+                updateBtn.className = "btn btn-primary btn-sm float-end update";
                 updateBtn.appendChild(document.createTextNode("Update"));
                 newTdUpdate.appendChild(updateBtn);
                 updateBtn.setAttribute("onclick", "updateItem(this)");
@@ -311,11 +227,11 @@
         function updateItem(a) {
             let rowToUpdate = a.parentElement.parentElement;
             let domChanges = [
-                "<input type=\"date\" style=\"margin-left: -0.5rem;\" class=\"updated form-control\">",
-                "<input type=\"number\" style=\"margin-left: -0.5rem;\" class=\"updated form-control\" placeholder=\"Sum\" step=\"any\">",
-                "<input type=\"text\" style=\"margin-left: -0.5rem;\" class=\"updated form-control\" placeholder=\"Shop\">",
-                "<input type=\"text\" style=\"margin-left: -0.5rem;\" class=\"updated form-control\" placeholder=\"Goods\">",
-                "<button class=\"btn btn-success btn-sm float-end mx-2 save\" onclick=\"saveUpdatedItem(this)\">Save it</button>",
+                "<input type=\"date\" class=\"updated form-control\">",
+                "<input type=\"number\" class=\"updated form-control\" placeholder=\"Amount\" step=\"any\">",
+                "<input type=\"text\" class=\"updated form-control\" placeholder=\"Shop\">",
+                "<input type=\"text\" class=\"updated form-control\" placeholder=\"Goods\">",
+                "<button class=\"btn btn-success btn-sm float-end mx-1 save\" onclick=\"saveUpdatedItem(this)\">Save it</button>",
                 "<button class=\"btn btn-danger btn-sm float-end delete\" disabled>Delete</button>"
             ];
             for (let i = 0; i < rowToUpdate.children.length; i++) {
@@ -338,28 +254,35 @@
                 //why this does not work???
                 // updatedRow.getElementById('deleteIt').innerHTML = "<button class=\"btn btn-danger btn-sm float-end delete\" id=\"deleteIt\" onclick=\"removeItem(this)\">Delete</button>";
                 updatedRow.children[5].innerHTML = "<button class=\"btn btn-danger btn-sm float-end delete\" id=\"deleteIt\" onclick=\"removeItem(this)\">Delete</button>";
-                updatedRow.children[4].innerHTML = "<button class=\"btn btn-primary btn-sm float-end mx-2 update\" onclick=\"updateItem(this)\">Update</button>"
+                updatedRow.children[4].innerHTML = "<button class=\"btn btn-primary btn-sm float-end update\" onclick=\"updateItem(this)\">Update</button>"
                 displayLeftItems()
             };
-        // function filterItems(e) {
-        //     let text = e.target.value.toLowerCase();
-        //     let dates = itemList.getElementsByTagName("th");
-        //     let items = itemList.getElementsByTagName("td");
-        //     Array.from(items).forEach(function(item) {
-        //         var itemName = item.firstChild.textContent;
-        //         if (itemName.toLowerCase().indexOf(text) != -1) {
-        //             item.style.display = "block";
-        //         } else {
-        //             item.style.display = "none";
-        //         }
-        //     });
-        // }
+
+            // TODO: Solve this
+            // function filterItems(e) {
+            //     let text = e.target.value.toLowerCase();
+            //     console.log(items);
+            //     let dates = document.getElementsByTagName("th");
+            //     let items = document.getElementsByTagName("td");
+            //     Array.from(items).forEach(function(item) {
+            //         var inputItems = item.getElementsByTagName("td");
+            //         Array.from(inputItems).forEach(function (inputItem) {
+            //                 var itemName = inputItem.value;
+            //         if (itemName.toLowerCase().indexOf(text) != -1) {
+            //             item.style.display = "block";
+            //         } else {
+            //             item.style.display = "none";
+            //             }
+            //         } )
+            //     }
+            //     )};
+
     </script>
-    <script src="calendar_js/jquery.min.js"></script>
-    <!-- <script src="calendar_js/popper.js+bootstrap.min.js.pagespeed.jc.9QM1F2U496.js"></script> -->
+    <script src="calendar/jquery.min.js"></script>
+    <!-- <script src="calendar/popper.js+bootstrap.min.js.pagespeed.jc.9QM1F2U496.js"></script> -->
     <!-- <script>eval(mod_pagespeed_d_3xTCmj_W);</script> -->
     <!-- <script>eval(mod_pagespeed_72yOIcwSMU);</script> -->
-    <script src="calendar_js/main.js"></script>
+    <script src="calendar/main.js"></script>
     <!-- <script defer="" src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;rayId&quot;:&quot;670e40689f02b514&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2021.6.0&quot;,&quot;si&quot;:10}"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </html>
