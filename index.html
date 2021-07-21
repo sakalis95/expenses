@@ -5,7 +5,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Expenses app</title>
-        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" /> -->
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&amp;display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -57,7 +56,7 @@
             .calendar_content div.today:after {
             position: absolute;
             top: 50%;
-            left: 2%;
+            left: 0;
             right: 0;
             bottom: 0;
             transform: translateY(-50%);
@@ -112,7 +111,7 @@
             <div id="main" class="card card-body">
                 <div class=" d-flex align-items-center justify-content-center flex-row">
                     <div id="addForm" class="mb-3">
-                        <h2 class="title ">Add your purchases</h2>
+                        <h2 class="title d-flex justify-content-center">Add your purchases</h2>
                         <div class="form-inline">
                             <input type="date" class="form-control mr-2 my-2" id="date">
                             <input type="number" class="form-control mr-2 my-2" id="amount" placeholder="Amount" step="any">
@@ -122,7 +121,7 @@
                             <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on" rows="3" cols="1" style="max-width: 38rem"></textarea>
                         </div>
                         <div>
-                            <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem();" style="width: 38rem">
+                            <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem(), displayItem(), clearInput();;" style="width: 38rem">
                         </div>
                     </div>
                     <div class="ps-4">
@@ -142,7 +141,7 @@
                     </div>
                 </div>
             </div>
-                <h2 class="title">Purchases</h2>
+                <h2 class="title d-flex justify-content-center">Purchases</h2>
                 <table class="table table-striped">
                     <thead>
                         <tr class="table-success">
@@ -150,6 +149,8 @@
                             <th scope="col" style="width: 6rem" onclick="">Amount</th>
                             <th scope="col" style="width: 6rem" onclick="">Shop</th>
                             <th scope="col" style="width: 30rem">Goods</th>
+                            <!-- <th scope="col" style="width: 4rem"></th> -->
+                            <th scope="col" style="width: 4rem"></th>
                         </tr>
                         <tbody id="tbody">
                             <tr>
@@ -157,7 +158,6 @@
                         </tbody>
                     </thead>
                 </table>
-                <ul id="items" class="list-group"></ul>
             </div>
         </div>
     </body>
@@ -168,28 +168,19 @@
         let yyyy = today.getFullYear();
         today = yyyy + '-' + mm + '-' + dd;
         document.getElementById('date').value = today;
-        let items = [];
-        let item = [];
-        function createItem() {
-            let newItemDate = document.getElementById("date").value;
-            let newItemAmount = document.getElementById("amount").value;
-            let newItemShop = document.getElementById("shop").value;
-            let newItemGoods = document.getElementById("goods").value;
-            item.push([newItemDate, newItemAmount, newItemShop, newItemGoods]);
-            addItemToStorage(item);
-            displayItem();
-        };
 
-        function addItemToStorage(item) {
-            localStorage.setItem("items", JSON.stringify(item));
+        let items = [];
+        let newItemDate = document.getElementById("date");
+        let newItemAmount = document.getElementById("amount");
+        let newItemShop = document.getElementById("shop");
+        let newItemGoods = document.getElementById("goods");
+
+        function createItem() {
+            items.push([newItemDate.value, newItemAmount.value, newItemShop.value, newItemGoods.value]);
+            localStorage.setItem('items', JSON.stringify(items));
         };
 
         function displayItem() {
-            const inputDate = document.getElementById("date").value;
-            const inputAmount = document.getElementById("amount").value;
-            const inputShop = document.getElementById("shop").value;
-            const inputGoods = document.getElementById("goods").value;
-
             const tbody = document.getElementById("tbody");
             const newTr = document.createElement("tr");
 
@@ -197,56 +188,100 @@
             const newTdAmount = document.createElement("td");
             const newTdShop = document.createElement("td");
             const newTdGoods = document.createElement("td");
+            // const newTdUpdate = document.createElement("td");
+            const newTdDelete = document.createElement("td");
 
             newThDate.className = 'inputDate';
             newTdAmount.className = 'inputAmount';
             newTdShop.className = 'inputShop';
             newTdGoods.className = 'inputGoods';
 
-            newThDate.appendChild(document.createTextNode(inputDate));
-            newTdAmount.appendChild(document.createTextNode(inputAmount));
-            newTdShop.appendChild(document.createTextNode(inputShop));
-            newTdGoods.appendChild(document.createTextNode(inputGoods));
+            newThDate.appendChild(document.createTextNode(newItemDate.value));
+            newTdAmount.appendChild(document.createTextNode(newItemAmount.value));
+            newTdShop.appendChild(document.createTextNode(newItemShop.value));
+            newTdGoods.appendChild(document.createTextNode(newItemGoods.value));
 
             newTr.appendChild(newThDate);
             newTr.appendChild(newTdAmount);
             newTr.appendChild(newTdShop);
             newTr.appendChild(newTdGoods);
+            // newTr.appendChild(newTdUpdate);
+            newTr.appendChild(newTdDelete);
 
             let deleteBtn = document.createElement("button");
-            deleteBtn.className = "btn btn-danger btn-sm float-right delete";
+            deleteBtn.className = "btn btn-danger btn-sm float-end delete";
             deleteBtn.appendChild(document.createTextNode("Delete"));
-            newTdGoods.appendChild(deleteBtn);
-            // let updateBtn = document.createElement("button");
-            // updateBtn.className = "btn btn-primary btn-sm float-right mr-2 update";
-            // updateBtn.appendChild(document.createTextNode("Update"));
-            // newTdGoods.appendChild(updateBtn);
-            tbody.appendChild(newTr);
-        }
+            newTdDelete.appendChild(deleteBtn);
+            deleteBtn.setAttribute("onclick", "removeItem(this)");
 
-        // let addItem = () => {
-        //     let item = document.getElementById("input");
-        //     items.push(item.value);
-        //     localStorage.setItem("items", JSON.stringify(items));
-        //     const ul = document.getElementById("ul");
-        //     const newLi = document.createElement("li");
-        //     newLi.appendChild(document.createTextNode(item.value));
-        //     ul.appendChild(newLi);
-        // };
-        // let clearInput = () => {
-        //     document.getElementById("input").value = "";
-        // };
-        // let displayItems = () => {
-        //     let itemsFromStorage = JSON.parse(localStorage.getItem("items"));
-        //     const ul = document.getElementById("ul");
+            // let updateBtn = document.createElement("button");
+            // updateBtn.className = "btn btn-primary btn-sm float-end mx-2 update";
+            // updateBtn.appendChild(document.createTextNode("Update"));
+            // newTdUpdate.appendChild(updateBtn);
+            tbody.appendChild(newTr);
+        };
+
+        function clearInput() {
+            newItemAmount.value = "";
+            newItemShop.value = "";
+            newItemGoods.value = "";
+        };
+
+        // function displayAllItems () {
+        //     const itemsFromStorage = JSON.parse(localStorage.getItem('items'));
+        //     let storedItemDate = "";
+        //     let storedItemAmount = "";
+        //     let storedItemShop = "";
+        //     let storedItemGoods = "";
+        //     let storedData = [storedItemDate, storedItemAmount, storedItemShop, storedItemGoods];
         //     for (let i = 0; i < itemsFromStorage.length; i++) {
-        //         const newLi = document.createElement("li");
-        //         newLi.appendChild(document.createTextNode(itemsFromStorage[i]));
-        //         ul.appendChild(newLi);
+        //         // let storedItemDate = itemsFromStorage[i][0];
+        //         // let storedItemAmount = itemsFromStorage[i][1];
+        //         // let storedItemShop = itemsFromStorage[i][2];
+        //         // let storedItemGoods = itemsFromStorage[i][3];
+        //         // console.log(storedItemDate);
+        //         // console.log(storedItemAmount);
+        //         // console.log(storedItemShop);
+        //         // console.log(storedItemGoods);
+        //         if (storedData.length === itemsFromStorage[i].length) {
+        //             for (let j = 0; j < itemsFromStorage[i].length; j++) {
+        //                 displayItem(itemsFromStorage[i][j])
+        //                 // storedData[j] = itemsFromStorage[i][j];
+        //                 // console.log(storedData[j]);
+        //                 // console.log(itemsFromStorage[i][j]);
+        //                 // console.log(storedItemDate);
+        //                 // console.log(storedItemAmount);
+        //                 // console.log(storedItemShop);
+        //                 // console.log(storedItemGoods);
+        //             }
+        //         } else {
+        //             console.log("Inproper data");
+        //         }
+                
         //     }
         //     items = itemsFromStorage;
         // };
-        // displayItems();
+        // displayAllItems ();
+
+        function removeItem (a) {;
+            let rowToRemove = a.parentElement.parentElement;
+            tbody.removeChild(rowToRemove);
+            window.localStorage.removeItem('items');
+            displayLeftItems()
+            };
+
+        function displayLeftItems() {
+            const trCount = document.getElementsByTagName("tr");
+            let items = [];
+            for (i = 0; i < trCount.length - 2; i++) {
+                let dateInTable = document.getElementsByClassName("inputDate")[i].innerText;
+                let amountInTable = document.getElementsByClassName("inputAmount")[i].innerText;
+                let shopInTable = document.getElementsByClassName("inputShop")[i].innerText;
+                let goodsInTable = document.getElementsByClassName("inputGoods")[i].innerText;
+                items.push([dateInTable, amountInTable, shopInTable, goodsInTable]);       
+                }
+                localStorage.setItem('items', JSON.stringify(items));    
+            };
 
         // function filterItems(e) {
         //     let text = e.target.value.toLowerCase();
