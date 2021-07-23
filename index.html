@@ -37,7 +37,7 @@
                             <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on" rows="3"></textarea>
                         </div>
                         <div>
-                            <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem();" style="width: 38rem">
+                            <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem(), displayItem(), clearInput();;" style="width: 38rem">
                         </div>
                     </div>
                     <div class="ps-4">
@@ -95,8 +95,6 @@
             let storedItems = JSON.parse(localStorage.getItem('items'));
             storedItems.push([newItemDate.value, newItemAmount.value, newItemShop.value, newItemGoods.value]);
             localStorage.setItem('items', JSON.stringify(storedItems));
-            displayItem();
-            clearInput();
         };
 
         function displayItem() {
@@ -210,7 +208,7 @@
         function removeItem (a) {;
             let rowToRemove = a.parentElement.parentElement;
             tbody.removeChild(rowToRemove);
-            window.localStorage.removeItem('items');
+            localStorage.removeItem('items');
             displayLeftItems()
             };
 
