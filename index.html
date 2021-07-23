@@ -37,7 +37,7 @@
                             <textarea type="text" class="form-control mr-2" id="goods" placeholder="Goods" autocomplete="on" rows="3"></textarea>
                         </div>
                         <div>
-                            <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem(), displayItem(), clearInput();" style="width: 38rem">
+                            <input type="submit" class="btn btn-dark my-2" value="Save" onclick="createItem();" style="width: 38rem">
                         </div>
                     </div>
                     <div class="ps-4">
@@ -61,12 +61,12 @@
                 <table class="table table-striped">
                     <thead>
                         <tr class="table-success">
-                            <th scope="col" style="width: 14rem" onclick="">Date of purchase</th>
-                            <th scope="col" style="width: 8rem" onclick="">Amount</th>
-                            <th scope="col" style="width: 8rem" onclick="">Shop</th>
-                            <th scope="col" style="width: 26rem">Goods</th>
-                            <th scope="col" style="width: 4rem"></th>
-                            <th scope="col" style="width: 4rem"></th>
+                            <th scope="col" class="th" style="width: 14rem" onclick="">Date of purchase</th>
+                            <th scope="col" class="th" style="width: 8rem" onclick="">Amount</th>
+                            <th scope="col" class="th" style="width: 8rem" onclick="">Shop</th>
+                            <th scope="col" class="th" style="width: 26rem">Goods</th>
+                            <th scope="col" class="th" style="width: 4rem"></th>
+                            <th scope="col" class="th" style="width: 4rem"></th>
                         </tr>
                         <tbody id="tbody">
                             <tr>
@@ -92,8 +92,11 @@
         let newItemGoods = document.getElementById("goods");
 
         function createItem() {
-            items.push([newItemDate.value, newItemAmount.value, newItemShop.value, newItemGoods.value]);
-            localStorage.setItem('items', JSON.stringify(items));
+            let storedItems = JSON.parse(localStorage.getItem('items'));
+            storedItems.push([newItemDate.value, newItemAmount.value, newItemShop.value, newItemGoods.value]);
+            localStorage.setItem('items', JSON.stringify(storedItems));
+            displayItem();
+            clearInput();
         };
 
         function displayItem() {
