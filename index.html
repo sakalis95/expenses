@@ -92,7 +92,8 @@
         let newItemGoods = document.getElementById("goods");
 
         function createItem() {
-            let storedItems = JSON.parse(localStorage.getItem('items'));
+            let storedItems = [];
+            storedItems = JSON.parse(localStorage.getItem('items'));
             storedItems.push([newItemDate.value, newItemAmount.value, newItemShop.value, newItemGoods.value]);
             localStorage.setItem('items', JSON.stringify(storedItems));
         };
@@ -147,12 +148,11 @@
         };
 
         function displayAllItems () {
-            const itemsFromStorage = JSON.parse(localStorage.getItem('items'));
-
+            let itemsFromStorage = [];
             let storageData = [];
+            itemsFromStorage = JSON.parse(localStorage.getItem('items'));
             for (let i = 0; i < itemsFromStorage.length; i++) {
             storageData.push([itemsFromStorage[i]]);
-            
             };
 
         
