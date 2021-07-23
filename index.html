@@ -91,11 +91,17 @@
         let newItemShop = document.getElementById("shop");
         let newItemGoods = document.getElementById("goods");
 
+        let storedItems = [];
         function createItem() {
-            let storedItems = [];
-            storedItems = JSON.parse(localStorage.getItem('items'));
-            storedItems.push([newItemDate.value, newItemAmount.value, newItemShop.value, newItemGoods.value]);
-            localStorage.setItem('items', JSON.stringify(storedItems));
+            console.log(localStorage.length);
+            if (localStorage.length === 0) {
+                storedItems.push([newItemDate.value, newItemAmount.value, newItemShop.value, newItemGoods.value]);
+                localStorage.setItem('items', JSON.stringify(storedItems));
+            } else {
+                storedItems = JSON.parse(localStorage.getItem('items'));
+                storedItems.push([newItemDate.value, newItemAmount.value, newItemShop.value, newItemGoods.value]);
+                localStorage.setItem('items', JSON.stringify(storedItems));
+            }
         };
 
         function displayItem() {
